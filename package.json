@@ -1,0 +1,30 @@
+{
+    "name": "lang-svelte",
+    "version": "1.0.0",
+    "description": "App to practice writing in French, Mandarin, and Spanish",
+    "main": "server.js",
+    "scripts": {
+        "server": "nodemon server.js",
+        "start": "node server.js"
+    },
+    "keywords": [
+        "language",
+        "learning",
+        "french",
+        "mandarin",
+        "spanish",
+        "full",
+        "stack",
+        "app"
+    ],
+    "author": "Anil Bhattarai",
+    "license": "MIT",
+    "dependencies": {
+        "bcrypt": "^5.0.0",
+        "better-sqlite3": "^7.1.0",
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "jsonwebtoken": "^8.5.1",
+        "nodemailer": "^6.4.11"
+    }
+}
