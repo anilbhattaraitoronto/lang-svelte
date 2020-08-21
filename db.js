@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS posts(
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     lang TEXT NOT NULL DEFAULT 'french',
     title TEXT NOT NULL,
+    slug TEXT NOT NULL DEFAULT 'slug-is-slug',
     summary TEXT NOT NULL,
     thumbnail TEXT NOT NULL,
     content TEXT NOT NULL,
