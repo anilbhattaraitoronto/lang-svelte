@@ -7,6 +7,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 8px;
   }
   :global(a.active) {
     color: rgb(13, 48, 95);

@@ -6,6 +6,7 @@
     failureMessage,
   } from "../../stores/authstore.js";
   import { postData } from "../../App.svelte";
+  import AuthTransition from "./AuthTransition.svelte";
 
   let email = "";
   let password = "";
@@ -79,23 +80,26 @@
 {#if $failureMessage}
   <p>{$failureMessage}</p>
 {/if}
-<main>
-  <form on:submit|preventDefault={signup}>
-    <h2>Create Account</h2>
-    <label for="email">Email</label>
-    <input type="email" id="email" bind:value={email} required />
-    <label for="password">Password</label>
-    <input type="password" id="password" bind:value={password} required />
-    <label for="confirmPassword">Re-type Password</label>
-    <input
-      type="password"
-      id="confirmPassword"
-      bind:value={confirmPassword}
-      required />
-    <input type="submit" value="Create Account" />
-  </form>
-  <p>
-    Do you already have an account?
-    <a href="#/login">Login</a>
-  </p>
-</main>
+<AuthTransition>
+
+  <main>
+    <form on:submit|preventDefault={signup}>
+      <h2>Create Account</h2>
+      <label for="email">Email</label>
+      <input type="email" id="email" bind:value={email} required />
+      <label for="password">Password</label>
+      <input type="password" id="password" bind:value={password} required />
+      <label for="confirmPassword">Re-type Password</label>
+      <input
+        type="password"
+        id="confirmPassword"
+        bind:value={confirmPassword}
+        required />
+      <input type="submit" value="Create Account" />
+    </form>
+    <p>
+      Do you already have an account?
+      <a href="#/login">Login</a>
+    </p>
+  </main>
+</AuthTransition>

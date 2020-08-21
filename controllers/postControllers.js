@@ -37,7 +37,8 @@ exports.addPost = (req, res) => {
 };
 exports.updatePost = (req, res) => {
   //run this after verifyAdmin as a middleware
-  const { id, lang, title, summary, thumbnail, content } = req.body;
+  const { lang, title, summary, thumbnail, content } = req.body;
+  const { id } = req.params;
   const updatedDate = new Date().toLocaleString();
   //verify all data is present
   if (id && lang && title && summary && thumbnail && content) {
@@ -55,23 +56,34 @@ exports.updatePost = (req, res) => {
       id,
     );
 
-    const getNewPostStmt = DB.prepare(`SELECT * FROM posts WHERE id= ?;`);
-    const newPost = getNewPostStmt.get(id);
-    return res.status(200).json(newPost);
+    const getLatestPostsStmt = DB.prepare(
+      `SELECT * FROM posts ORDER BY posted_date LIMIT 30;`,
+    );
+    const updatedPosts = getLatestPostsStmt.all();
+    return res.status(200).json(
+      {
+        status: 200,
+        updatedPosts: updatedPosts,
+      },
+    );
   } else {
     return res.status(400).json({ message: "All fields are required." });
   }
 };
 
 exports.deletePost = (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
+  console.log(id);
   if (id) {
     const getPostStmt = DB.prepare(`SELECT id FROM posts WHERE id = ?;`);
     const post = getPostStmt.get(id);
     if (post) {
       const deletePostStmt = DB.prepare(`DELETE FROM posts WHERE id =?;`);
       deletePostStmt.run(id);
-      return res.status(200).json({ message: "Post is deleted." });
+      return res.status(200).json({
+        status: 200,
+        message: "Post is deleted.",
+      });
     } else {
       return res.status(404).json({ message: "That post does not exist." });
     }

@@ -6,6 +6,7 @@
   } from "../../stores/authstore.js";
   import { push } from "svelte-spa-router";
   import { postData } from "../../App.svelte";
+  import AuthTransition from "./AuthTransition.svelte";
 
   let email = "";
   let password = "";
@@ -69,10 +70,11 @@
   }
 </style>
 
-{#if !$user}
-  {#if $failureMessage}
-    <p>{$failureMessage}</p>
-  {/if}
+{#if $failureMessage}
+  <p>{$failureMessage}</p>
+{/if}
+<AuthTransition>
+
   <main>
     <form on:submit|preventDefault={login}>
 
@@ -93,4 +95,4 @@
       <a href="#/requestpasswordreset">Reset Password.</a>
     </p>
   </main>
-{/if}
+</AuthTransition>

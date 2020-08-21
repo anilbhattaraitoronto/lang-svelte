@@ -1,5 +1,10 @@
 <script>
-
+  import { onMount } from "svelte";
+  import { fly } from "svelte/transition";
+  let show = false;
+  onMount(() => {
+    show = true;
+  });
 </script>
 
 <style>
@@ -8,8 +13,10 @@
   }
 </style>
 
-<main>
-  <slot>
-    <!-- optional fallback -->
-  </slot>
-</main>
+{#if show}
+  <main in:fly={{ x: 300, duration: 700 }}>
+    <slot>
+      <!-- optional fallback -->
+    </slot>
+  </main>
+{/if}

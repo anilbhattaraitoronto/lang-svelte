@@ -71,7 +71,8 @@
       .then((response) => response.json())
       .then((data) => {
         if ($latestPosts) {
-          $latestPosts = [data, ...$latestPosts];
+          //   $latestPosts = [data, ...$latestPosts];
+          $latestPosts = data;
           push("/");
         } else {
           $latestPosts = data;
@@ -95,20 +96,33 @@
 
 <style>
   main {
+    width: 100%;
+    max-width: 1000px;
     padding: 1em;
     margin: 0 auto;
   }
   .success {
-    text-align: right;
+    text-align: center;
     color: darkgreen;
+  }
+  header {
+    box-shadow: 1px 2px 3px lightgray;
+    width: 100%;
+    margin: auto;
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 20;
   }
 </style>
 
 {#if $successMessage}
   <p class="success">{$successMessage}</p>
 {/if}
-<main>
+<header>
   <Navbar />
+</header>
+<main>
 
   <Router {routes} on:conditionsFailed={conditionsFailed} />
 

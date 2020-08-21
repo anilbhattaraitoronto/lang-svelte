@@ -9,7 +9,7 @@ const router = Router();
 
 router.get("/latest", getLatestPosts);
 router.post("/addpost", verifyAdmin, addPost);
-router.put("/updatepost", verifyAdmin, updatePost);
-router.delete("/deletepost", verifyAdmin, deletePost);
+router.post("/updatepost/:id", verifyAdmin, updatePost);
+router.delete("/deletepost/:id", verifyAdmin, deletePost);
 
 module.exports = router;

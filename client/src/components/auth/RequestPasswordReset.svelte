@@ -6,6 +6,7 @@
     failureMessage,
   } from "../../stores/authstore.js";
   import { postData } from "../../App.svelte";
+  import AuthTransition from "./AuthTransition.svelte";
 
   let email = "";
   let requestUrl = "http://localhost:4005/api/auth/requestpasswordresetlink";
@@ -66,11 +67,13 @@
   }
 </style>
 
-<main>
-  <form on:submit|preventDefault={requestResetForm}>
-    <h2>Request Password Reset</h2>
-    <label for="email">Email</label>
-    <input type="email" id="email" bind:value={email} required />
-    <input type="submit" value="Request Password Reset Form" />
-  </form>
-</main>
+<AuthTransition>
+  <main>
+    <form on:submit|preventDefault={requestResetForm}>
+      <h2>Request Password Reset</h2>
+      <label for="email">Email</label>
+      <input type="email" id="email" bind:value={email} required />
+      <input type="submit" value="Request Password Reset Form" />
+    </form>
+  </main>
+</AuthTransition>

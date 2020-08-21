@@ -1,6 +1,7 @@
 <script>
   import { push } from "svelte-spa-router";
   import { postData } from "../../App.svelte";
+  import AuthTransition from "./AuthTransition.svelte";
   import {
     user,
     successMessage,
@@ -73,17 +74,20 @@
 {#if $failureMessage}
   <p>{$failureMessage}</p>
 {/if}
-<main>
-  <form on:submit|preventDefault={changePassword}>
-    <h2>Change Password</h2>
-    <label for="password">New Password</label>
-    <input type="password" id="password" bind:value={password} required />
-    <label for="confirmPassword">Re-type New Password</label>
-    <input
-      type="password"
-      id="confirmPassword"
-      bind:value={confirmPassword}
-      required />
-    <input type="submit" value="Change Password" />
-  </form>
-</main>
+<AuthTransition>
+
+  <main>
+    <form on:submit|preventDefault={changePassword}>
+      <h2>Change Password</h2>
+      <label for="password">New Password</label>
+      <input type="password" id="password" bind:value={password} required />
+      <label for="confirmPassword">Re-type New Password</label>
+      <input
+        type="password"
+        id="confirmPassword"
+        bind:value={confirmPassword}
+        required />
+      <input type="submit" value="Change Password" />
+    </form>
+  </main>
+</AuthTransition>
