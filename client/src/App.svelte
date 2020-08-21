@@ -63,7 +63,7 @@
     ),
     "/:id/:slug": PostDetail,
   };
-  const baseUrl = "http://localhost:4005";
+  const baseUrl = "https://french.merohouse.com";
   const apiUrl = "/api/posts/latest";
   const fetchUrl = `${baseUrl}${apiUrl}`;
   onMount(async () => {

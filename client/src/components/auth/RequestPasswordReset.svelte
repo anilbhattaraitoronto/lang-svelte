@@ -9,7 +9,8 @@
   import AuthTransition from "./AuthTransition.svelte";
 
   let email = "";
-  let requestUrl = "http://localhost:4005/api/auth/requestpasswordresetlink";
+  let requestUrl =
+    "https://french.merohouse.com/api/auth/requestpasswordresetlink";
   function requestResetForm() {
     postData(requestUrl, "request token", { email })
       .then((data) => {

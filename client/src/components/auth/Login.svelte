@@ -10,7 +10,7 @@
 
   let email = "";
   let password = "";
-  let loginUrl = "http://localhost:4005/api/auth/login";
+  let loginUrl = "https://french.merohouse.com/api/auth/login";
   async function login() {
     await postData(loginUrl, "token", { email, password })
       .then((data) => {

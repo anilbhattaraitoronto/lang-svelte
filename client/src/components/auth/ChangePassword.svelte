@@ -10,7 +10,8 @@
 
   let password = "";
   let confirmPassword = "";
-  let changePasswordUrl = "http://localhost:4005/api/auth/changepassword";
+  let changePasswordUrl =
+    "https://french.merohouse.com/api/auth/changepassword";
   let token = JSON.parse($user).accessToken;
   async function changePassword() {
     postData(changePasswordUrl, token, { password, confirmPassword })

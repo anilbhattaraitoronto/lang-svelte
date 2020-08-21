@@ -19,7 +19,7 @@
   }
 
   async function deletePost(id) {
-    await fetch(`http://localhost:4005/api/posts/deletepost/${id}`, {
+    await fetch(`https://french.merohouse.com/api/posts/deletepost/${id}`, {
       method: "DELETE",
       mode: "cors",
       cache: "no-cache",

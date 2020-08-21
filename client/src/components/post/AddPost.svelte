@@ -26,7 +26,7 @@
   let content = "";
   $: slug = slugify(title);
 
-  let addPostUrl = "http://localhost:4005/api/posts/addpost";
+  let addPostUrl = "https://french.merohouse.com/api/posts/addpost";
   let token = JSON.parse($user).accessToken;
 
   async function addPost() {

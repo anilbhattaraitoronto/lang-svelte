@@ -12,7 +12,7 @@
   let password = "";
   let confirmPassword = "";
 
-  let signupUrl = "http://localhost:4005/api/auth/signup";
+  let signupUrl = "https://french.merohouse.com/api/auth/signup";
 
   function signup() {
     postData(signupUrl, "Signup token", {
