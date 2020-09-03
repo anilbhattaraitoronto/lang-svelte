@@ -2,7 +2,7 @@ const DB = require("../db.js");
 
 exports.getLatestPosts = (req, res) => {
   const getLatestPostsStmt = DB.prepare(
-    `SELECT * FROM posts ORDER BY posted_date LIMIT 30;`,
+    `SELECT * FROM posts ORDER BY posted_date DESC LIMIT 30;`,
   );
   const latestPosts = getLatestPostsStmt.all();
   if (latestPosts.length > 0) {
