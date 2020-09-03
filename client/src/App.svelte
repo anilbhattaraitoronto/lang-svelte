@@ -7,11 +7,11 @@
       credentials: "same-origin",
       headers: {
         "Content-Type": "application/json",
-        "x-access-token": token,
+        "x-access-token": token
       },
       redirect: "follow",
       referrerPolicy: "no-referrer",
-      body: JSON.stringify(data),
+      body: JSON.stringify(data)
     });
 
     return response.json();
@@ -25,6 +25,7 @@
   import Router, { push, wrap } from "svelte-spa-router";
   import Navbar from "./components/ui/Navbar.svelte";
   import Footer from "./components/ui/Footer.svelte";
+  import Home from "./components/post/Home.svelte";
   import Landing from "./components/post/Landing.svelte";
   import Signup from "./components/auth/Signup.svelte";
   import Login from "./components/auth/Login.svelte";
@@ -39,7 +40,8 @@
   import Spanish from "./components/post/Spanish.svelte";
 
   const routes = {
-    "/": Landing,
+    "/": Home,
+    // "/posts": Landing,
     "/french": French,
     "/mandarin": Mandarin,
     "/spanish": Spanish,
@@ -61,15 +63,15 @@
       { reason: "notAdmin" },
       () => $user && parseInt(JSON.parse($user).status) === 1
     ),
-    "/:id/:slug": PostDetail,
+    "/:id/:slug": PostDetail
   };
   const baseUrl = "https://french.merohouse.com";
   const apiUrl = "/api/posts/latest";
   const fetchUrl = `${baseUrl}${apiUrl}`;
   onMount(async () => {
     await fetch(fetchUrl)
-      .then((response) => response.json())
-      .then((data) => {
+      .then(response => response.json())
+      .then(data => {
         if ($latestPosts) {
           //   $latestPosts = [data, ...$latestPosts];
           $latestPosts = data;
