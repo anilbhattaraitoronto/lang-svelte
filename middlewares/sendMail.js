@@ -19,7 +19,8 @@ exports.sendActivationLink = (
     secret,
     { expiresIn: "3m" },
   );
-  const activationUrl = `http://localhost:4005/api/auth/activate/${token}`;
+  const activationUrl =
+    `https://french.merohouse.com/api/auth/activate/${token}`;
   const options = {
     from: "no-reply@email.com",
     to: userEmail,
@@ -40,7 +41,7 @@ exports.sendPasswordResetEmail = (senderDetail, userEmail, secret) => {
   const transporter = nodemailer.createTransport(senderDetail);
   const token = jwt.sign({ email: userEmail }, secret, { expiresIn: "5m" });
   const passwordResetLink =
-    `http://localhost:4005/api/auth/sendpasswordresetform/${token}`;
+    `https://french.merohouse.com/api/auth/sendpasswordresetform/${token}`;
   const options = {
     from: "no-reply@email.com",
     to: userEmail,

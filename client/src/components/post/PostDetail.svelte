@@ -76,7 +76,7 @@
     slug = slugify(title);
   }
 
-  let updateUrl = `http://localhost:4005/api/posts/updatepost/${id}`;
+  let updateUrl = `https://french.merohouse.com/api/posts/updatepost/${id}`;
 
   async function updatePost() {
     await postData(updateUrl, token, {
