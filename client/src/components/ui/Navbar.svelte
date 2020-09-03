@@ -16,11 +16,20 @@
     color: rgb(13, 48, 95);
     text-decoration: underline;
   }
+  h1 {
+    transition: 300ms all ease-in-out;
+  }
+  @media (max-width: 600px) {
+    header {
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
 </style>
 
 <header>
   <h1>
-    <a href="#/">🏠F-M-S</a>
+    <a href="#/">🏠Fre-Ma-S</a>
   </h1>
   <nav>
     <a
