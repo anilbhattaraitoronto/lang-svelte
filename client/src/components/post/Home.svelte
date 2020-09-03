@@ -1,3 +1,7 @@
+<script>
+  import HomeTransition from "./HomeTransition.svelte";
+</script>
+
 <style>
   main {
     position: relative;
@@ -24,9 +28,11 @@
   }
 </style>
 
-<main>
-  <img
-    src="https://images.unsplash.com/photo-1531926249475-325d7895646b?ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80"
-    alt="" />
-  <h2>Welcome</h2>
-</main>
+<HomeTransition>
+  <main>
+    <img
+      src="https://images.unsplash.com/photo-1531926249475-325d7895646b?ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80"
+      alt="" />
+    <h2>Welcome</h2>
+  </main>
+</HomeTransition>
