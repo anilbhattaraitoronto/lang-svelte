@@ -3,12 +3,13 @@
   import { latestPosts } from "../../stores/poststore.js";
   import { user, successMessage, failureMessage } from "../../stores/authstore";
   import { push, location } from "svelte-spa-router";
+  import AuthTransition from "../auth/AuthTransition.svelte";
 
   let langs = ["French", "Mandarin", "Spanish"];
   export let params = {};
   let post;
   if ($latestPosts) {
-    post = $latestPosts.find((post) => post.id == params.id);
+    post = $latestPosts.find(post => post.id == params.id);
   } else {
     post = {};
     push("/");
@@ -26,29 +27,29 @@
       credentials: "same-origin",
       headers: {
         "Content-Type": "application/json",
-        "x-access-token": token,
+        "x-access-token": token
       },
       redirect: "follow",
-      referrerPolicy: "no-referrer",
+      referrerPolicy: "no-referrer"
     })
-      .then((response) => response.json())
-      .then((data) => {
+      .then(response => response.json())
+      .then(data => {
         if (data.status === 200) {
           $successMessage = "Post is deleted.";
-          $latestPosts = $latestPosts.filter((post) => post.id !== id);
+          $latestPosts = $latestPosts.filter(post => post.id !== id);
           push("/");
         } else {
           $failureMessage = data.message;
         }
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }
 
   //update
 
-  const slugify = (val) => {
+  const slugify = val => {
     return val
       .toString()
       .toLowerCase()
@@ -85,9 +86,9 @@
       slug,
       summary,
       thumbnail,
-      content,
+      content
     })
-      .then((data) => {
+      .then(data => {
         if (data.status === 200) {
           $successMessage = "Post Updated.";
           $latestPosts = data.updatedPosts;
@@ -96,7 +97,7 @@
           $failureMessage = data.message;
         }
       })
-      .catch((err) => {
+      .catch(err => {
         console.log("Error is: ", err);
       });
   }
@@ -188,60 +189,63 @@
 <main>
 
   {#if post}
-    <article class="post">
+    <AuthTransition>
 
-      <p class="posted-date">
-        <em>{new Date(post.posted_date).toDateString()}</em>
-      </p>
-      <p>
-        <a href="#/{post.lang}">{post.lang}</a>
-      </p>
-      <h3>{post.title}</h3>
-      <img src={post.thumbnail} alt="" />
-      <p>
-        <em>Summary:</em>
-        {post.summary}
-      </p>
-      <div class="content">
-        <p>{post.content}</p>
-      </div>
-      <p class="updated-date">
-        <em>Updated on:</em>
-        {new Date(post.updated_date).toLocaleString()}
-      </p>
-      {#if $user && parseInt(JSON.parse($user).status) === 1}
-        <details>
-          <summary>Delete Post?</summary>
+      <article class="post">
 
-          <button on:click={() => deletePost(post.id)}>Delete Post?</button>
-        </details>
-        <details>
-          <summary>Update?</summary>
-          <form on:submit|preventDefault={updatePost}>
-            <h2>Update Post</h2>
-            <label for="lang">Choose A Language</label>
-            <select id="lang" bind:value={lang} required>
-              <option>Choose</option>
-              {#each langs as language}
-                <option value={language}>{language}</option>
-              {/each}
-            </select>
-            <label for="title">Title</label>
-            <input type="text" id="title" bind:value={title} />
-            <!-- <label for="slug">Slug</label>
+        <p class="posted-date">
+          <em>{new Date(post.posted_date).toDateString()}</em>
+        </p>
+        <p>
+          <a href="#/{post.lang}">{post.lang}</a>
+        </p>
+        <h3>{post.title}</h3>
+        <img src={post.thumbnail} alt="" />
+        <p>
+          <em>Summary:</em>
+          {post.summary}
+        </p>
+        <div class="content">
+          <p>{post.content}</p>
+        </div>
+        <p class="updated-date">
+          <em>Updated on:</em>
+          {new Date(post.updated_date).toLocaleString()}
+        </p>
+        {#if $user && parseInt(JSON.parse($user).status) === 1}
+          <details>
+            <summary>Delete Post?</summary>
+
+            <button on:click={() => deletePost(post.id)}>Delete Post?</button>
+          </details>
+          <details>
+            <summary>Update?</summary>
+            <form on:submit|preventDefault={updatePost}>
+              <h2>Update Post</h2>
+              <label for="lang">Choose A Language</label>
+              <select id="lang" bind:value={lang} required>
+                <option>Choose</option>
+                {#each langs as language}
+                  <option value={language}>{language}</option>
+                {/each}
+              </select>
+              <label for="title">Title</label>
+              <input type="text" id="title" bind:value={title} />
+              <!-- <label for="slug">Slug</label>
     <input type="text" id="slug" bind:value={slug} /> -->
-            <label for="summary">Summary</label>
-            <input type="text" id="summary" bind:value={summary} />
-            <label for="thumbnail">Thumbnail</label>
-            <input type="text" id="thumbnail" bind:value={thumbnail} />
-            <label for="content">Content</label>
-            <textarea id="content" cols="30" rows="10" bind:value={content} />
-            <input type="submit" value="Add Post" />
-          </form>
-          <p>{slug}</p>
-        </details>
-      {/if}
-    </article>
+              <label for="summary">Summary</label>
+              <input type="text" id="summary" bind:value={summary} />
+              <label for="thumbnail">Thumbnail</label>
+              <input type="text" id="thumbnail" bind:value={thumbnail} />
+              <label for="content">Content</label>
+              <textarea id="content" cols="30" rows="10" bind:value={content} />
+              <input type="submit" value="Add Post" />
+            </form>
+            <p>{slug}</p>
+          </details>
+        {/if}
+      </article>
+    </AuthTransition>
   {:else}
     <p>No post detail.</p>
   {/if}
