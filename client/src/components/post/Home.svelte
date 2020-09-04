@@ -11,8 +11,10 @@
     position: relative;
     width: 100%;
     margin: auto;
+    max-height: 100vh;
+    object-fit: cover;
   }
-  h2 {
+  .welcome {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -33,6 +35,10 @@
     <img
       src="https://images.unsplash.com/photo-1531926249475-325d7895646b?ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80"
       alt="" />
-    <h2>Welcome</h2>
+    <div class="welcome">
+      <h2>Welcome</h2>
+      <p>A new language, a whole new world!</p>
+    </div>
+
   </main>
 </HomeTransition>
