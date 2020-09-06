@@ -7,11 +7,11 @@
 
   let langs = ["French", "Mandarin", "Spanish"];
   export let params = {};
-  let post;
+  let post = {};
   if ($latestPosts) {
     post = $latestPosts.find(post => post.id == params.id);
   } else {
-    post = {};
+    // post = {};
     push("/");
   }
   let token;
@@ -65,7 +65,7 @@
   let thumbnail = "";
   let content = "";
   let id;
-  let slug;
+  let slug = "";
 
   if (post !== {}) {
     lang = post.lang;
@@ -74,7 +74,7 @@
     thumbnail = post.thumbnail;
     content = post.content;
     id = post.id;
-    slug = slugify(title);
+    slug = post.slug;
   }
 
   let updateUrl = `https://french.merohouse.com/api/posts/updatepost/${id}`;
@@ -188,7 +188,7 @@
 </svelte:head>
 <main>
 
-  {#if post}
+  {#if post && post !== {}}
     <AuthTransition>
 
       <article class="post">

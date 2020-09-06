@@ -72,14 +72,14 @@
     await fetch(fetchUrl)
       .then(response => response.json())
       .then(data => {
-        if ($latestPosts) {
-          //   $latestPosts = [data, ...$latestPosts];
-          $latestPosts = data;
-          push("/");
-        } else {
-          $latestPosts = data;
-          push("/");
-        }
+        // if ($latestPosts) {
+        //   $latestPosts = [data, ...$latestPosts];
+        $latestPosts = data;
+        push("/");
+        // } else {
+        //   $latestPosts = data;
+        //   push("/");
+        // }
       });
   });
 
