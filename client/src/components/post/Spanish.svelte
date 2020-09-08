@@ -44,6 +44,7 @@
       height: auto;
       float: none;
     }
+  }
 </style>
 
 <svelte:head>

@@ -34,7 +34,7 @@
     object-fit: cover;
     padding-right: 20px;
     float: left;
-    border-radius:0;
+    border-radius: 0;
   }
   @media (max-width: 600px) {
     .post img {
@@ -44,6 +44,7 @@
       height: auto;
       float: none;
     }
+  }
 </style>
 
 <svelte:head>
