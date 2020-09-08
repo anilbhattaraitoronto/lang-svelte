@@ -9,7 +9,7 @@
   export let params = {};
   let post = {};
   if ($latestPosts) {
-    post = $latestPosts.find(post => post.id == params.id);
+    post = $latestPosts.find((post) => post.id == params.id);
   } else {
     // post = {};
     push("/");
@@ -27,29 +27,29 @@
       credentials: "same-origin",
       headers: {
         "Content-Type": "application/json",
-        "x-access-token": token
+        "x-access-token": token,
       },
       redirect: "follow",
-      referrerPolicy: "no-referrer"
+      referrerPolicy: "no-referrer",
     })
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         if (data.status === 200) {
           $successMessage = "Post is deleted.";
-          $latestPosts = $latestPosts.filter(post => post.id !== id);
+          $latestPosts = $latestPosts.filter((post) => post.id !== id);
           push("/");
         } else {
           $failureMessage = data.message;
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
 
   //update
 
-  const slugify = val => {
+  const slugify = (val) => {
     return val
       .toString()
       .toLowerCase()
@@ -86,9 +86,9 @@
       slug,
       summary,
       thumbnail,
-      content
+      content,
     })
-      .then(data => {
+      .then((data) => {
         if (data.status === 200) {
           $successMessage = "Post Updated.";
           $latestPosts = data.updatedPosts;
@@ -97,7 +97,7 @@
           $failureMessage = data.message;
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log("Error is: ", err);
       });
   }
@@ -110,7 +110,7 @@
   article {
     width: 100%;
     max-width: 800px;
-    padding: 20px;
+    padding: 8px;
     background: rgb(241, 239, 239);
     margin: 10px auto;
     border-bottom: 1px solid rgba(211, 211, 211, 0.555);
@@ -126,9 +126,10 @@
     width: 100%;
     max-width: 750px;
     height: 450px;
-    margin: auto;
+    margin: 16px auto;
     object-fit: cover;
-    padding: 20px;
+    border-radius: 0;
+    /* padding: 20px; */
   }
 
   /* form styles */
@@ -181,30 +182,27 @@
     color: yellow;
     width: 100%;
   }
+  @media (max-width: 600px) {
+    .post img {
+      height: auto;
+    }
+  }
 </style>
 
 <svelte:head>
   <title>{post.title}</title>
 </svelte:head>
 <main>
-
   {#if post && post !== {}}
     <AuthTransition>
-
       <article class="post">
-
         <p class="posted-date">
           <em>{new Date(post.posted_date).toDateString()}</em>
         </p>
-        <p>
-          <a href="#/{post.lang}">{post.lang}</a>
-        </p>
+        <p><a href="#/{post.lang}">{post.lang}</a></p>
         <h3>{post.title}</h3>
         <img src={post.thumbnail} alt="" />
-        <p>
-          <em>Summary:</em>
-          {post.summary}
-        </p>
+        <p><em>Summary:</em> {post.summary}</p>
         <div class="content">
           <p>{post.content}</p>
         </div>

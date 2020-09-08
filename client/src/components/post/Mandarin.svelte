@@ -34,7 +34,16 @@
     object-fit: cover;
     padding-right: 20px;
     float: left;
+    border-radius:0;
   }
+  @media (max-width: 600px) {
+    .post img {
+      display: block;
+      width: 100%;
+      margin: auto;
+      height: auto;
+      float: none;
+    }
 </style>
 
 <svelte:head>
@@ -52,17 +61,11 @@
         <p class="posted-date">
           <em>{new Date(post.posted_date).toDateString()}</em>
         </p>
-        <h3>
-          <a href="#/{post.id}/{post.slug}">{post.title}</a>
-        </h3>
-        <p>
-          <em>Summary:</em>
-          {post.summary}
-        </p>
+        <h3><a href="#/{post.id}/{post.slug}">{post.title}</a></h3>
+        <p><em>Summary:</em> {post.summary}</p>
       </article>
     {/each}
   {:else}
     <p>No Mandarin posts yet</p>
   {/if}
-
 </main>
