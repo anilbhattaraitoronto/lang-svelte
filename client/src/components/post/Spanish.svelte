@@ -2,6 +2,7 @@
   import { push } from "svelte-spa-router";
   import { latestPosts } from "../../stores/poststore.js";
   import LandTransition from "./LandTransition.svelte";
+  import PostTransition from "./PostTransition.svelte";
 
   let spanishPosts;
   if ($latestPosts) {
@@ -66,24 +67,26 @@
   </LandTransition>
 
   {#if $latestPosts}
-    <div class="posts">
-      {#each spanishPosts as post (post.id)}
-        <article class="post">
-          <img src={post.thumbnail} alt="" />
+    <PostTransition>
+      <div class="posts">
+        {#each spanishPosts as post (post.id)}
+          <article class="post">
+            <img src={post.thumbnail} alt="" />
 
-          <p class="posted-date">
-            <em>{new Date(post.posted_date).toDateString()}</em>
-          </p>
-          <h3>
-            <a href="#/{post.id}/{post.slug}">{post.title}</a>
-          </h3>
-          <p>
-            <em>Summary:</em>
-            {post.summary}
-          </p>
-        </article>
-      {/each}
-    </div>
+            <p class="posted-date">
+              <em>{new Date(post.posted_date).toDateString()}</em>
+            </p>
+            <h3>
+              <a href="#/{post.id}/{post.slug}">{post.title}</a>
+            </h3>
+            <p>
+              <em>Summary:</em>
+              {post.summary}
+            </p>
+          </article>
+        {/each}
+      </div>
+    </PostTransition>
   {:else}
     <p>No Spanish posts yet</p>
   {/if}

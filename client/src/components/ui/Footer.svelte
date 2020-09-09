@@ -33,7 +33,7 @@
 <footer>
   <nav>
     <a href="#/" class="main-link">Home</a>
-    <a href="#/about" class="main-link">About</a>
+    <!-- <a href="#/about" class="main-link">About</a> -->
     {#if !$user}
       <a href="#/login" class="main-link">Login</a>
       <a href="#/signup" class="main-link">Register</a>

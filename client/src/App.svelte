@@ -34,7 +34,7 @@
   import Lang from "./components/post/Lang.svelte";
   import AddPost from "./components/post/AddPost.svelte";
   import PostDetail from "./components/post/PostDetail.svelte";
-  import About from "./components/post/About.svelte";
+  //   import About from "./components/post/About.svelte";
   import French from "./components/post/French.svelte";
   import Mandarin from "./components/post/Mandarin.svelte";
   import Spanish from "./components/post/Spanish.svelte";
@@ -45,7 +45,7 @@
     "/french": French,
     "/mandarin": Mandarin,
     "/spanish": Spanish,
-    "/about": About,
+    // "/about": About,
     "/signup": wrap(Signup, { reason: "authenticated" }, () => !$user),
     "/login": wrap(Login, { reason: "authenticated" }, () => !$user),
     "/changepassword": wrap(

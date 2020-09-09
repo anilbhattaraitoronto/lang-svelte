@@ -1,6 +1,7 @@
 <script>
   import { push } from "svelte-spa-router";
   import LandTransition from "./LandTransition.svelte";
+  import PostTransition from "./PostTransition.svelte";
   import { latestPosts } from "../../stores/poststore.js";
   let frenchPosts;
   if ($latestPosts) {
@@ -19,6 +20,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 4px;
+    transition: 300ms all ease-in-out;
   }
   article {
     width: 100%;
@@ -65,24 +67,27 @@
   </LandTransition>
 
   {#if $latestPosts}
-    <div class="posts">
+    <PostTransition>
 
-      {#each frenchPosts as post (post.id)}
-        <article class="post">
-          <img src={post.thumbnail} alt="" />
-          <p class="posted-date">
-            <em>{new Date(post.posted_date).toDateString()}</em>
-          </p>
-          <h3>
-            <a href="#/{post.id}/{post.slug}">{post.title}</a>
-          </h3>
-          <p>
-            <em>Summary:</em>
-            {post.summary}
-          </p>
-        </article>
-      {/each}
-    </div>
+      <div class="posts">
+
+        {#each frenchPosts as post (post.id)}
+          <article class="post">
+            <img src={post.thumbnail} alt="" />
+            <p class="posted-date">
+              <em>{new Date(post.posted_date).toDateString()}</em>
+            </p>
+            <h3>
+              <a href="#/{post.id}/{post.slug}">{post.title}</a>
+            </h3>
+            <p>
+              <em>Summary:</em>
+              {post.summary}
+            </p>
+          </article>
+        {/each}
+      </div>
+    </PostTransition>
   {:else}
     <p>No french posts yet</p>
   {/if}
