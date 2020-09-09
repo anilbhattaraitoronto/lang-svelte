@@ -101,8 +101,6 @@
     width: 100%;
     max-width: 1000px;
     margin: 0 auto;
-    /* max-height: 100vh;
-    overflow: auto; */
   }
   .success {
     text-align: center;

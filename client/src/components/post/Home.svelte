@@ -13,6 +13,7 @@
     margin: auto;
     max-height: 100vh;
     object-fit: cover;
+    border-radius: 0;
   }
   .welcome {
     position: absolute;
@@ -30,6 +31,9 @@
   }
 </style>
 
+<svelte:head>
+  <title>Welcome</title>
+</svelte:head>
 <HomeTransition>
   <main>
     <img
