@@ -4,7 +4,7 @@
   import { latestPosts } from "../../stores/poststore.js";
   let frenchPosts;
   if ($latestPosts) {
-    frenchPosts = $latestPosts.filter((post) => post.lang === "French");
+    frenchPosts = $latestPosts.filter(post => post.lang === "French");
   } else {
     frenchPosts = [];
     push("/");
@@ -15,7 +15,13 @@
   main {
     padding: 20px;
   }
+  .posts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 4px;
+  }
   article {
+    width: 100%;
     padding: 20px;
     background: rgb(241, 239, 239);
     margin: 10px auto;
@@ -28,14 +34,17 @@
     padding-bottom: 8px;
   }
   .post img {
-    width: 250px;
-    height: 120px;
+    width: 200px;
+    height: 100px;
     object-fit: cover;
     padding-right: 20px;
     float: left;
     border-radius: 0;
   }
   @media (max-width: 600px) {
+    .posts {
+      grid-template-columns: 1fr;
+    }
     .post img {
       display: block;
       width: 100%;
@@ -56,16 +65,24 @@
   </LandTransition>
 
   {#if $latestPosts}
-    {#each frenchPosts as post (post.id)}
-      <article class="post">
-        <img src={post.thumbnail} alt="" />
-        <p class="posted-date">
-          <em>{new Date(post.posted_date).toDateString()}</em>
-        </p>
-        <h3><a href="#/{post.id}/{post.slug}">{post.title}</a></h3>
-        <p><em>Summary:</em> {post.summary}</p>
-      </article>
-    {/each}
+    <div class="posts">
+
+      {#each frenchPosts as post (post.id)}
+        <article class="post">
+          <img src={post.thumbnail} alt="" />
+          <p class="posted-date">
+            <em>{new Date(post.posted_date).toDateString()}</em>
+          </p>
+          <h3>
+            <a href="#/{post.id}/{post.slug}">{post.title}</a>
+          </h3>
+          <p>
+            <em>Summary:</em>
+            {post.summary}
+          </p>
+        </article>
+      {/each}
+    </div>
   {:else}
     <p>No french posts yet</p>
   {/if}
