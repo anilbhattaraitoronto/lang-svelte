@@ -12,6 +12,9 @@
     margin: auto;
     padding: 8px;
   }
+  a {
+    color: green;
+  }
   :global(a.active) {
     color: rgb(13, 48, 95);
     text-decoration: underline;
@@ -36,19 +39,19 @@
       href="#/french"
       class="main-link"
       use:active={{ path: '/french', className: 'active' }}>
-      🇫🇷French
+      🇫🇷 French
     </a>
     <a
       href="#/mandarin"
       class="main-link"
       use:active={{ path: '/mandarin', className: 'active' }}>
-      🇨🇳Mandarin
+      🇨🇳 Mandarin
     </a>
     <a
       href="#/spanish"
       class="main-link"
       use:active={{ path: '/spanish', className: 'active' }}>
-      🇪🇸Spanish
+      🇪🇸 Spanish
     </a>
   </nav>
 </header>

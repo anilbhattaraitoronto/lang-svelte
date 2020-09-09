@@ -43,6 +43,7 @@
       margin: auto;
       height: auto;
       float: none;
+      padding-right: 0;
     }
   }
 </style>
