@@ -209,7 +209,9 @@
           {post.summary}
         </p>
         <div class="content">
-          <p>{post.content}</p>
+          <p>
+            {@html post.content}
+          </p>
         </div>
         <p class="updated-date">
           <em>Updated on:</em>
