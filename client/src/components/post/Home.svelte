@@ -5,6 +5,7 @@
 <style>
   main {
     position: relative;
+    padding: 20px;
   }
   img {
     display: block;
