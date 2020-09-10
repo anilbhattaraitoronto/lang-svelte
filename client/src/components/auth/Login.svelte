@@ -2,7 +2,7 @@
   import {
     user,
     successMessage,
-    failureMessage,
+    failureMessage
   } from "../../stores/authstore.js";
   import { push } from "svelte-spa-router";
   import { postData } from "../../App.svelte";
@@ -13,7 +13,7 @@
   let loginUrl = "https://french.merohouse.com/api/auth/login";
   async function login() {
     await postData(loginUrl, "token", { email, password })
-      .then((data) => {
+      .then(data => {
         if (data.accessToken) {
           $successMessage = "You are logged in.";
           localStorage.setItem("user", JSON.stringify(data));
@@ -23,7 +23,7 @@
           $failureMessage = data.message;
         }
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }
@@ -70,6 +70,9 @@
   }
 </style>
 
+<svelte:head>
+  <title>Login</title>
+</svelte:head>
 {#if $failureMessage}
   <p>{$failureMessage}</p>
 {/if}

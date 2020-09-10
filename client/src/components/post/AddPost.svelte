@@ -114,6 +114,9 @@
   }
 </style>
 
+<svelte:head>
+  <title>Add New Post</title>
+</svelte:head>
 {#if $user && parseInt(JSON.parse($user).status) === 1}
   <main>
     <form on:submit|preventDefault={addPost}>

@@ -3,7 +3,7 @@
   import {
     user,
     successMessage,
-    failureMessage,
+    failureMessage
   } from "../../stores/authstore.js";
   import { postData } from "../../App.svelte";
   import AuthTransition from "./AuthTransition.svelte";
@@ -13,7 +13,7 @@
     "https://french.merohouse.com/api/auth/requestpasswordresetlink";
   function requestResetForm() {
     postData(requestUrl, "request token", { email })
-      .then((data) => {
+      .then(data => {
         if (data.status === 200) {
           $successMessage = "Please check your email and reset your password.";
           push("/");
@@ -21,7 +21,7 @@
           $failureMessage = data.message;
         }
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }
@@ -68,6 +68,9 @@
   }
 </style>
 
+<svelte:head>
+  <title>Request Password Reset</title>
+</svelte:head>
 <AuthTransition>
   <main>
     <form on:submit|preventDefault={requestResetForm}>

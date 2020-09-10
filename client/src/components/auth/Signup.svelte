@@ -3,7 +3,7 @@
   import {
     user,
     successMessage,
-    failureMessage,
+    failureMessage
   } from "../../stores/authstore.js";
   import { postData } from "../../App.svelte";
   import AuthTransition from "./AuthTransition.svelte";
@@ -18,9 +18,9 @@
     postData(signupUrl, "Signup token", {
       email,
       password,
-      confirmPassword,
+      confirmPassword
     })
-      .then((data) => {
+      .then(data => {
         if (data.success) {
           $successMessage =
             "Please check your email and activate your account.";
@@ -30,7 +30,7 @@
           console.log(data);
         }
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }
@@ -76,6 +76,10 @@
     width: 100%;
   }
 </style>
+
+<svelte:head>
+  <title>Sign Up</title>
+</svelte:head>
 
 {#if $failureMessage}
   <p>{$failureMessage}</p>

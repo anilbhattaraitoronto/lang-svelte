@@ -5,7 +5,7 @@
   import {
     user,
     successMessage,
-    failureMessage,
+    failureMessage
   } from "../../stores/authstore.js";
 
   let password = "";
@@ -15,7 +15,7 @@
   let token = JSON.parse($user).accessToken;
   async function changePassword() {
     postData(changePasswordUrl, token, { password, confirmPassword })
-      .then((data) => {
+      .then(data => {
         if (data.status === 200) {
           $successMessage = data.message;
           localStorage.removeItem("user");
@@ -25,7 +25,7 @@
           $failureMessage = data.message;
         }
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }
@@ -71,6 +71,10 @@
     width: 100%;
   }
 </style>
+
+<svelte:head>
+  <title>Change Password</title>
+</svelte:head>
 
 {#if $failureMessage}
   <p>{$failureMessage}</p>
