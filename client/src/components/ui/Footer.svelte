@@ -6,7 +6,7 @@
 <style>
   footer {
     text-align: center;
-    color: rgba(0, 0, 0, 0.507);
+    color: rgba(35, 39, 38, 0.507);
     font-size: 0.9em;
     padding: 8px;
   }
@@ -17,7 +17,7 @@
     align-items: center;
   }
   .main-link {
-    color: darkblue;
+    color: darkgreen;
     padding: 8px 16px;
     cursor: pointer;
   }

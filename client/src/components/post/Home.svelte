@@ -6,6 +6,7 @@
   main {
     position: relative;
     padding: 20px;
+    width: 100%;
   }
   img {
     display: block;
@@ -22,13 +23,20 @@
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 20px 0;
-    background: rgba(255, 255, 255, 0.399);
+    background: rgba(49, 73, 55, 0.799);
     width: 80%;
     margin: auto;
     text-align: center;
+    color: white;
+  }
+  h2 {
     text-transform: uppercase;
-    letter-spacing: 2px;
-    color: darkblue;
+    letter-spacing: 3px;
+    padding: 8px 0;
+  }
+  p {
+    color: yellow;
+    letter-spacing: 3px;
   }
 </style>
 
@@ -38,7 +46,7 @@
 <HomeTransition>
   <main>
     <img
-      src="https://images.unsplash.com/photo-1531926249475-325d7895646b?ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80"
+      src="https://images.unsplash.com/photo-1515859033836-a0a913c0f94a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
       alt="" />
     <div class="welcome">
       <h2>Welcome</h2>
