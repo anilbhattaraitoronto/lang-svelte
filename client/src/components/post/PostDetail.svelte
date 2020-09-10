@@ -145,8 +145,7 @@
     text-align: center;
   }
   label,
-  input,
-  textarea {
+  input {
     all: unset;
     display: block;
     width: 80%;
@@ -158,6 +157,12 @@
   textarea {
     border: 1px solid lightgray;
     padding: 6px 2px;
+  }
+  textarea {
+    display: block;
+    width: 80%;
+    margin: 4px auto;
+    transition: 300ms all ease-in-out;
   }
   select {
     display: block;
