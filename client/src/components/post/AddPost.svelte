@@ -5,11 +5,11 @@
   import {
     user,
     successMessage,
-    failureMessage
+    failureMessage,
   } from "../../stores/authstore.js";
   let langs = ["French", "Mandarin", "Spanish"];
 
-  const slugify = val => {
+  const slugify = (val) => {
     return val
       .toString()
       .toLowerCase()
@@ -36,12 +36,12 @@
       slug,
       summary,
       thumbnail,
-      content
+      content,
     })
-      .then(data => {
+      .then((data) => {
         if (data.status === 200) {
           if ($latestPosts) {
-            $latestPosts = [data.newPost, ...$latestPosts];
+            $latestPosts = [...$latestPosts, data.newPost];
             $successMessage = "New post is added.";
             push(`/${lang}`);
           } else {
@@ -51,7 +51,7 @@
           $failureMessage = data.message;
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
