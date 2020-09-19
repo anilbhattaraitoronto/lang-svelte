@@ -9,7 +9,7 @@
   export let params = {};
   let post = {};
   if ($latestPosts) {
-    post = $latestPosts.find(post => post.id == params.id);
+    post = $latestPosts.find((post) => post.id == params.id);
   } else {
     // post = {};
     push("/");
@@ -27,29 +27,29 @@
       credentials: "same-origin",
       headers: {
         "Content-Type": "application/json",
-        "x-access-token": token
+        "x-access-token": token,
       },
       redirect: "follow",
-      referrerPolicy: "no-referrer"
+      referrerPolicy: "no-referrer",
     })
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         if (data.status === 200) {
           $successMessage = "Post is deleted.";
-          $latestPosts = $latestPosts.filter(post => post.id !== id);
+          $latestPosts = $latestPosts.filter((post) => post.id !== id);
           push("/");
         } else {
           $failureMessage = data.message;
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
 
   //update
 
-  const slugify = val => {
+  const slugify = (val) => {
     return val
       .toString()
       .toLowerCase()
@@ -86,9 +86,9 @@
       slug,
       summary,
       thumbnail,
-      content
+      content,
     })
-      .then(data => {
+      .then((data) => {
         if (data.status === 200) {
           $successMessage = "Post Updated.";
           $latestPosts = data.updatedPosts;
@@ -97,7 +97,7 @@
           $failureMessage = data.message;
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log("Error is: ", err);
       });
   }
@@ -204,15 +204,10 @@
         <p class="posted-date">
           <em>{new Date(post.posted_date).toDateString()}</em>
         </p>
-        <p>
-          <a href="#/{post.lang}">{post.lang}</a>
-        </p>
+        <p><a href="#/{post.lang}">{post.lang}</a></p>
         <h3>{post.title}</h3>
         <img src={post.thumbnail} alt="" />
-        <p>
-          <em>Summary:</em>
-          {post.summary}
-        </p>
+        <p><em>Summary:</em> {post.summary}</p>
         <div class="content">
           <p>
             {@html post.content}
@@ -241,8 +236,6 @@
               </select>
               <label for="title">Title</label>
               <input type="text" id="title" bind:value={title} />
-              <!-- <label for="slug">Slug</label>
-    <input type="text" id="slug" bind:value={slug} /> -->
               <label for="summary">Summary</label>
               <input type="text" id="summary" bind:value={summary} />
               <label for="thumbnail">Thumbnail</label>

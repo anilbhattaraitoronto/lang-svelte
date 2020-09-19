@@ -130,8 +130,6 @@
       </select>
       <label for="title">Title</label>
       <input type="text" id="title" bind:value={title} />
-      <!-- <label for="slug">Slug</label>
-    <input type="text" id="slug" bind:value={slug} /> -->
       <label for="summary">Summary</label>
       <input type="text" id="summary" bind:value={summary} />
       <label for="thumbnail">Thumbnail</label>
