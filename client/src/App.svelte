@@ -1,131 +1,234 @@
 <script context="module">
-  export async function postData(url = " ", token = "", data = {}) {
-    let response = await fetch(url, {
-      method: "POST",
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": token
-      },
-      redirect: "follow",
-      referrerPolicy: "no-referrer",
-      body: JSON.stringify(data)
-    });
+    export async function postData(url = " ", token = "", data = {}) {
+        let response = await fetch(url, {
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json",
+                "x-access-token": token,
+            },
+            redirect: "follow",
+            referrerPolicy: "no-referrer",
+            body: JSON.stringify(data),
+        });
 
-    return response.json();
-  }
+        return response.json();
+    }
 </script>
 
 <script>
-  import { onMount } from "svelte";
-  import { user, successMessage } from "./stores/authstore.js";
-  import { latestPosts } from "./stores/poststore.js";
-  import Router, { push, wrap } from "svelte-spa-router";
-  import Navbar from "./components/ui/Navbar.svelte";
-  import Footer from "./components/ui/Footer.svelte";
-  import Home from "./components/post/Home.svelte";
-  import Landing from "./components/post/Landing.svelte";
-  import Signup from "./components/auth/Signup.svelte";
-  import Login from "./components/auth/Login.svelte";
-  import ChangePassword from "./components/auth/ChangePassword.svelte";
-  import RequestPasswordReset from "./components/auth/RequestPasswordReset.svelte";
-  import Lang from "./components/post/Lang.svelte";
-  import AddPost from "./components/post/AddPost.svelte";
-  import PostDetail from "./components/post/PostDetail.svelte";
-  //   import About from "./components/post/About.svelte";
-  import French from "./components/post/French.svelte";
-  import Mandarin from "./components/post/Mandarin.svelte";
-  import Spanish from "./components/post/Spanish.svelte";
+    import { onMount } from "svelte";
+    import { user, successMessage } from "./stores/authstore.js";
+    import {
+        latestPosts,
+        langPosts,
+        postTitles,
+        postDetail,
+    } from "./stores/poststore.js";
+    import Router, { push, wrap } from "svelte-spa-router";
+    import active from "svelte-spa-router/active";
 
-  const routes = {
-    "/": Home,
-    // "/posts": Landing,
-    "/french": French,
-    "/mandarin": Mandarin,
-    "/spanish": Spanish,
-    // "/about": About,
-    "/signup": wrap(Signup, { reason: "authenticated" }, () => !$user),
-    "/login": wrap(Login, { reason: "authenticated" }, () => !$user),
-    "/changepassword": wrap(
-      ChangePassword,
-      { reason: "unauthenticated" },
-      () => $user
-    ),
-    "/requestpasswordreset": wrap(
-      RequestPasswordReset,
-      { reason: "authenticated" },
-      () => !$user
-    ),
-    "/addpost": wrap(
-      AddPost,
-      { reason: "notAdmin" },
-      () => $user && parseInt(JSON.parse($user).status) === 1
-    ),
-    "/:id/:slug": PostDetail
-  };
-  const baseUrl = "https://french.merohouse.com";
-  const apiUrl = "/api/posts/latest";
-  const fetchUrl = `${baseUrl}${apiUrl}`;
-  onMount(async () => {
-    await fetch(fetchUrl)
-      .then(response => response.json())
-      .then(data => {
-        // if ($latestPosts) {
-        //   $latestPosts = [data, ...$latestPosts];
-        $latestPosts = data;
-        push("/");
-        // } else {
-        //   $latestPosts = data;
-        //   push("/");
-        // }
-      });
-  });
+    import Navbar from "./components/ui/Navbar.svelte";
+    import Footer from "./components/ui/Footer.svelte";
+    import Home from "./components/post/Home.svelte";
+    import Landing from "./components/post/Landing.svelte";
+    import Signup from "./components/auth/Signup.svelte";
+    import Login from "./components/auth/Login.svelte";
+    import ChangePassword from "./components/auth/ChangePassword.svelte";
+    import RequestPasswordReset from "./components/auth/RequestPasswordReset.svelte";
+    import Lang from "./components/post/Lang.svelte";
+    import AddPost from "./components/post/AddPost.svelte";
+    import PostDetail from "./components/post/PostDetail.svelte";
 
-  function conditionsFailed(event) {
-    const { reason } = event.detail.userData;
-    switch (reason) {
-      case "unauthenticated":
-        return push("/");
-      case "authenticated":
-        return push("/");
-      case "notAdmin":
-        return push("/");
+    const langs = ["French", "Mandarin", "Spanish"];
+
+    const routes = {
+        "/": Home,
+        // "/posts": Landing,
+        "/signup": wrap(Signup, { reason: "authenticated" }, () => !$user),
+        "/login": wrap(Login, { reason: "authenticated" }, () => !$user),
+        "/changepassword": wrap(
+            ChangePassword,
+            { reason: "unauthenticated" },
+            () => $user
+        ),
+        "/requestpasswordreset": wrap(
+            RequestPasswordReset,
+            { reason: "authenticated" },
+            () => !$user
+        ),
+        "/addpost": wrap(
+            AddPost,
+            { reason: "notAdmin" },
+            () => $user && parseInt(JSON.parse($user).status) === 1
+        ),
+        "/language/:lang": Lang,
+        "/:id/:slug": PostDetail,
+    };
+    const baseUrl = "https://french.merohouse.com";
+    const apiUrl = "/api/posts/latest";
+    const fetchUrl = `${baseUrl}${apiUrl}`;
+    onMount(async () => {
+        await fetch(fetchUrl)
+            .then((response) => response.json())
+            .then((data) => {
+                // if ($latestPosts) {
+                //   $latestPosts = [data, ...$latestPosts];
+                $latestPosts = data;
+                // push("/");
+                // } else {
+                //   $latestPosts = data;
+                //   push("/");
+                // }
+            });
+    });
+
+    function conditionsFailed(event) {
+        const { reason } = event.detail.userData;
+        switch (reason) {
+            case "unauthenticated":
+                return push("/");
+            case "authenticated":
+                return push("/");
+            case "notAdmin":
+                return push("/");
+        }
     }
-  }
+
+    function getLandPosts(lang) {
+        $langPosts = $latestPosts.filter((post) => post.lang == lang);
+        console.log($langPosts);
+    }
+
+    function getPostDetail(id, slug) {
+        $postDetail = $latestPosts.find(
+            (post) => post.id == id && post.slug == slug
+        );
+        console.log($postDetail);
+    }
 </script>
 
 <style>
-  main {
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  .success {
-    text-align: center;
-    color: darkgreen;
-  }
-  header {
-    box-shadow: 1px 2px 3px lightgray;
-    width: 100%;
-    margin: auto;
-    position: sticky;
-    top: 0;
-    background: white;
-    z-index: 20;
-  }
+    main {
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+    }
+    .success {
+        text-align: center;
+        color: darkgreen;
+    }
+    header {
+        box-shadow: 1px 2px 3px lightgray;
+        width: 100%;
+        margin: auto;
+        position: sticky;
+        top: 0;
+        background: white;
+        z-index: 20;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 1200px;
+        margin: auto;
+        padding: 8px;
+    }
+    :global(a.active) {
+        color: rgb(13, 48, 95);
+        text-decoration: underline;
+    }
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 1200px;
+        margin: auto;
+        padding: 8px;
+    }
+    a {
+        color: green;
+    }
+    :global(a.active) {
+        color: rgb(13, 48, 95);
+        text-decoration: underline;
+    }
+    .main-link {
+        text-transform: capitalize;
+    }
+    h1 {
+        transition: 300ms all ease-in-out;
+    }
+    @media (max-width: 600px) {
+        header {
+            flex-direction: column;
+            justify-content: center;
+        }
+        main {
+            grid-template-columns: 1fr;
+        }
+    }
 </style>
 
 {#if $successMessage}
-  <p class="success">{$successMessage}</p>
+    <p class="success">{$successMessage}</p>
 {/if}
 <header>
-  <Navbar />
+    <h1><a href="#/">🏠Fre-Ma-S</a></h1>
+    <nav>
+        {#each langs as lang}
+            <a
+                href="#/language/{lang}"
+                class="main-link"
+                use:active={{ path: '/language/{lang}', className: 'active' }}
+                on:click={() => getLandPosts(lang)}>{lang}</a>
+        {/each}
+        <!-- <a
+            href="#/french"
+            class="main-link"
+            use:active={{ path: '/french', className: 'active' }}>
+            🇫🇷 French
+        </a>
+        <a
+            href="#/mandarin"
+            class="main-link"
+            use:active={{ path: '/mandarin', className: 'active' }}>
+            🇨🇳 Mandarin
+        </a>
+        <a
+            href="#/spanish"
+            class="main-link"
+            use:active={{ path: '/spanish', className: 'active' }}>
+            🇪🇸 Spanish
+        </a> -->
+    </nav>
 </header>
 <main>
-
-  <Router {routes} on:conditionsFailed={conditionsFailed} />
-
+    <div class="router-container">
+        <Router {routes} on:conditionsFailed={conditionsFailed} />
+    </div>
+    <div class="post-title-container">
+        <h2>Latest Posts</h2>
+        {#if $postTitles.length > 0}
+            <div class="post-titles">
+                {#each $postTitles as item}
+                    <p>{item.lang}</p>
+                    <li>
+                        <a
+                            href="#/{item.id}/{item.slug}"
+                            class="title-link"
+                            on:click={() => getPostDetail(item.id, item.slug)}>{item.title}</a>
+                    </li>
+                    <p>{new Date(item.posted_date).toDateString()}</p>
+                    <hr />
+                {/each}
+            </div>
+        {/if}
+    </div>
 </main>
 <Footer />
