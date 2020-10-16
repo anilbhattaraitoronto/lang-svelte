@@ -153,6 +153,7 @@
     }
     a {
         color: green;
+        margin: 0 16px;
     }
     :global(a.active) {
         color: rgb(13, 48, 95);
