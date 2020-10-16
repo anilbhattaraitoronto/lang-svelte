@@ -42,7 +42,20 @@
     import AddPost from "./components/post/AddPost.svelte";
     import PostDetail from "./components/post/PostDetail.svelte";
 
-    const langs = ["French", "Mandarin", "Spanish"];
+    const langs = [
+        {
+            name: "French",
+            flag: "🇫🇷",
+        },
+        {
+            name: "Mandarin",
+            flag: "🇨🇳",
+        },
+        {
+            name: "Spanish",
+            flag: "🇪🇸 ",
+        },
+    ];
 
     const routes = {
         "/": Home,
@@ -153,11 +166,32 @@
     }
     a {
         color: green;
-        margin: 0 16px;
+        margin: 0 8px;
     }
     :global(a.active) {
         color: rgb(13, 48, 95);
         text-decoration: underline;
+    }
+    .post-titles {
+        box-shadow: 1px 2px 3px gray;
+        margin: 16px 0;
+        cursor: pointer;
+        border: 1px solid transparent;
+        transition: 250ms all ease-in-out;
+    }
+    .post-titles:hover {
+        border-color: darkblue;
+    }
+    .title-lang > a {
+        font-style: italic;
+        color: darkblue;
+    }
+    .title-date {
+        color: rgb(172, 164, 164);
+        font-size: 0.9em;
+    }
+    li {
+        list-style-type: none;
     }
     .main-link {
         text-transform: capitalize;
@@ -184,29 +218,12 @@
     <nav>
         {#each langs as lang}
             <a
-                href="#/language/{lang}"
+                href="#/language/{lang.name}"
                 class="main-link"
                 use:active={{ path: '/language/{lang}', className: 'active' }}
-                on:click={() => getLangPosts(lang)}>{lang}</a>
+                on:click={() => getLangPosts(lang.name)}>{lang.flag}
+                {lang.name}</a>
         {/each}
-        <!-- <a
-            href="#/french"
-            class="main-link"
-            use:active={{ path: '/french', className: 'active' }}>
-            🇫🇷 French
-        </a>
-        <a
-            href="#/mandarin"
-            class="main-link"
-            use:active={{ path: '/mandarin', className: 'active' }}>
-            🇨🇳 Mandarin
-        </a>
-        <a
-            href="#/spanish"
-            class="main-link"
-            use:active={{ path: '/spanish', className: 'active' }}>
-            🇪🇸 Spanish
-        </a> -->
     </nav>
 </header>
 <main>
@@ -216,9 +233,9 @@
     <div class="post-title-container">
         <h2>Latest Posts</h2>
         {#if $postTitles.length > 0}
-            <div class="post-titles">
-                {#each $postTitles as item}
-                    <p>
+            {#each $postTitles as item}
+                <div class="post-titles">
+                    <p class="title-lang">
                         <a
                             href="#/language/{item.lang}"
                             on:click={() => getLangPosts(item.lang)}>{item.lang}</a>
@@ -229,10 +246,11 @@
                             class="title-link"
                             on:click={() => getPostDetail(item.id, item.slug)}>{item.title}</a>
                     </li>
-                    <p>{new Date(item.posted_date).toDateString()}</p>
-                    <hr />
-                {/each}
-            </div>
+                    <p class="title-date">
+                        {new Date(item.posted_date).toDateString()}
+                    </p>
+                </div>
+            {/each}
         {/if}
     </div>
 </main>
