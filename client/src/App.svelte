@@ -97,7 +97,7 @@
         }
     }
 
-    function getLandPosts(lang) {
+    function getLangPosts(lang) {
         $langPosts = $latestPosts.filter((post) => post.lang == lang);
         console.log($langPosts);
     }
@@ -187,7 +187,7 @@
                 href="#/language/{lang}"
                 class="main-link"
                 use:active={{ path: '/language/{lang}', className: 'active' }}
-                on:click={() => getLandPosts(lang)}>{lang}</a>
+                on:click={() => getLangPosts(lang)}>{lang}</a>
         {/each}
         <!-- <a
             href="#/french"
@@ -218,7 +218,11 @@
         {#if $postTitles.length > 0}
             <div class="post-titles">
                 {#each $postTitles as item}
-                    <p>{item.lang}</p>
+                    <p>
+                        <a
+                            href="#/language/{item.lang}"
+                            on:click={() => getLangPosts(item.lang)}>{item.lang}</a>
+                    </p>
                     <li>
                         <a
                             href="#/{item.id}/{item.slug}"
