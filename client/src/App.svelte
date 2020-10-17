@@ -168,6 +168,10 @@
         color: rgb(13, 48, 95);
         text-decoration: underline;
     }
+    .post-title-container {
+        height: 100vh;
+        overflow-y: auto;
+    }
     .post-titles {
         box-shadow: 0px 0px 1px lightgray;
         margin: 16px 8px;
