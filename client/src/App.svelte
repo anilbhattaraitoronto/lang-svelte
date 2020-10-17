@@ -135,8 +135,12 @@
         text-align: center;
         color: darkgreen;
     }
-    header {
+    .header-container {
+        width: 100%;
+        margin: auto;
         box-shadow: 1px 2px 3px lightgray;
+    }
+    header {
         width: 100%;
         margin: auto;
         position: sticky;
@@ -155,15 +159,7 @@
         color: rgb(13, 48, 95);
         text-decoration: underline;
     }
-    header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        max-width: 1200px;
-        margin: auto;
-        padding: 8px;
-    }
+
     a {
         color: green;
         margin: 0 8px;
@@ -214,19 +210,22 @@
 {#if $successMessage}
     <p class="success">{$successMessage}</p>
 {/if}
-<header>
-    <h1><a href="#/">🏠Fre-Ma-S</a></h1>
-    <nav>
-        {#each langs as lang}
-            <a
-                href="#/language/{lang.name}"
-                class="main-link"
-                use:active={{ path: '/language/{lang}', className: 'active' }}
-                on:click={() => getLangPosts(lang.name)}>{lang.flag}
-                {lang.name}</a>
-        {/each}
-    </nav>
-</header>
+<div class="header-container">
+    <header>
+        <h1><a href="#/">🏠Fre-Ma-S</a></h1>
+        <nav>
+            {#each langs as lang}
+                <a
+                    href="#/language/{lang.name}"
+                    class="main-link"
+                    use:active={{ path: '/language/{lang}', className: 'active' }}
+                    on:click={() => getLangPosts(lang.name)}>{lang.flag}
+                    {lang.name}</a>
+            {/each}
+        </nav>
+    </header>
+</div>
+
 <main>
     <div class="router-container">
         <Router {routes} on:conditionsFailed={conditionsFailed} />
