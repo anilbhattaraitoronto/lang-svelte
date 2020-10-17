@@ -173,11 +173,12 @@
         text-decoration: underline;
     }
     .post-titles {
-        box-shadow: 1px 2px 3px gray;
-        margin: 16px 0;
+        box-shadow: 0px 0px 1px lightgray;
+        margin: 16px 8px;
         cursor: pointer;
         border: 1px solid transparent;
         transition: 250ms all ease-in-out;
+        padding: 4px;
     }
     .post-titles:hover {
         border-color: darkblue;
